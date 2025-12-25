@@ -1,0 +1,45 @@
+# LoadLab Deployment - Core Kubernetes behavior demonstration
+# Demonstrates desired state, scaling, readiness, and self-healing
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadlab
+  namespace: demo
+spec:
+  replicas: 1  # Initial replica count
+  selector:
+    matchLabels:
+      app: loadlab
+  template:
+    metadata:
+      labels:
+        app: loadlab
+    spec:
+      containers:
+      - name: loadlab
+        image: loadlab:phase1.5
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3001  # Container port where the app runs
+        resources:
+          limits:
+            cpu: 200m  # CPU limit (small but real)
+          requests:
+            cpu: 100m  # CPU request (lower than limit)
+        # Liveness probe - checks if process is alive
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        # Readiness probe - checks if service is ready for traffic
+        # More important than liveness as it controls traffic routing
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 3001
+          initialDelaySeconds: 10
+          periodSeconds: 5
+  # Intentionally capped at 5 replicas to avoid resource exhaustion
+  # Scaling beyond 5 is intentionally avoided
