@@ -21,7 +21,6 @@
 /build
 
 # misc
-.DS_Store
 *.pem
 
 # debug
@@ -39,3 +38,61 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# kubernetes
+*.kubeconfig
+.kube/
+.kubectl/
+.k3s/
+.kind/
+
+# logs
+*.log
+logs/
+
+# cache
+.cache/
+.pnpm-store/
+
+# OS generated files
+Thumbs.db
+.DS_Store
+ehthumbs.db
+Icon?
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build outputs
+dist/
+.nuxt/
+.next/cache/
+out/
+build/
+
+# Testing
+coverage/
+coverage-final.json
+.nyc_output/
+
+# Runtime
+tmp/
+temp/
+
+# Certificates and keys
+*.crt
+*.key
+*.pem
+*.cert
+*.p12
