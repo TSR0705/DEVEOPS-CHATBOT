@@ -2,7 +2,7 @@
 // Captures pod identity and runtime metrics
 
 // Capture podName from environment (will be unique per pod)
-const podName = process.env.HOSTNAME || 'unknown-pod';
+const podName = process.env.HOSTNAME || "unknown-pod";
 
 // Track start time for uptime calculation
 const startTime = Date.now();
