@@ -78,7 +78,7 @@ kubectl wait --for=condition=ready pod -l app=loadlab -n demo --timeout=300s
 ### 1. Development Mode
 
 ```bash
-bun dev
+bun next dev
 ```
 
 ### 2. Production Mode
