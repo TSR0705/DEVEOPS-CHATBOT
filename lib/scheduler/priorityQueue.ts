@@ -6,7 +6,7 @@ import { ScheduledCommand } from "./types";
 
 class PriorityQueue {
   private queue: ScheduledCommand[] = [];
-  
+
   // Add command to queue and sort by priority then timestamp
   // Sorting on insert keeps dequeue O(1) and ensures deterministic ordering
   enqueue(cmd: ScheduledCommand): void {
@@ -20,7 +20,7 @@ class PriorityQueue {
       return a.timestamp - b.timestamp; // FIFO for same priority
     });
   }
-  
+
   // Remove and return highest priority command
   // Returns null if queue is empty
   // Fairness: commands are processed in priority then timestamp order
@@ -30,7 +30,7 @@ class PriorityQueue {
     }
     return this.queue.shift() || null;
   }
-  
+
   // Get current queue size
   size(): number {
     return this.queue.length;
