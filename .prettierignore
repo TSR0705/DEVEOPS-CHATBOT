@@ -1,0 +1,22 @@
+﻿# Dependencies
+node_modules/
+bun.lock
+bun.lockb
+
+# Build outputs
+.next/
+dist/
+build/
+
+# Logs
+*.log
+
+# Environment
+.env*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
