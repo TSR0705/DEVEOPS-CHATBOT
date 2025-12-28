@@ -13,6 +13,13 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      "@next/next/no-css-tags": "off", // Allow dynamic theme inline styles
+      "no-inline-styles": "off",
+      "@StyleX/no-invalid-styles": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
