@@ -1,5 +1,4 @@
-// Phase 5.1 frontend skeleton complete
-// Phase 5.2 navbar integration complete
+// Phase 5.2 CardNav implemented and verified
 // Minimal landing page — SERVER COMPONENT
 // No client code, no animations, no images
 
