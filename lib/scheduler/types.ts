@@ -13,7 +13,7 @@ export interface ParsedCommand {
 
 /**
  * UserRole — Roles derived SERVER-SIDE, never trusted from client.
- * 
+ *
  * WHY SERVER-SIDE ROLE DERIVATION IS MANDATORY:
  * - Client-provided roles can be spoofed
  * - UUID-only identity allows infinite regeneration
