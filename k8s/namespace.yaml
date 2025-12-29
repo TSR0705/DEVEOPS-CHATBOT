@@ -1,5 +1,4 @@
-# Namespace for LoadLab isolation
-# Provides logical separation and resource boundaries
+
 apiVersion: v1
 kind: Namespace
 metadata:
