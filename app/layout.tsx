@@ -1,8 +1,6 @@
-// Phase 5.1 frontend skeleton complete
-// Root layout — SERVER COMPONENT (no "use client")
-// Minimal, Lighthouse-safe baseline
 
 import type { Metadata } from "next";
+import { ClerkProvider } from '@clerk/nextjs';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,10 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-[#020409] text-[#E2E6F0] antialiased">
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className="bg-[#020409] text-[#E2E6F0] antialiased">
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
