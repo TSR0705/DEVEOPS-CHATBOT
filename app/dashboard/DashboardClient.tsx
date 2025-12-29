@@ -10,6 +10,7 @@ interface CommandInfo {
   action?: string;
   status?: string;
   timestamp?: number;
+  requestedReplicas?: number;
 }
 
 interface ResultInfo {
@@ -60,14 +61,14 @@ export default function DashboardClient() {
       setLoading(true);
       setError(null);
 
-      // Fetch system status
+
       const statusResponse = await fetch('/api/internal/status');
       if (statusResponse.ok) {
         const statusData = await statusResponse.json();
         setSystemStatus(statusData);
       }
 
-      // Fetch health status
+
       const healthResponse = await fetch('/api/internal/health');
       if (healthResponse.ok) {
         const healthData = await healthResponse.json();
@@ -83,7 +84,7 @@ export default function DashboardClient() {
 
   useEffect(() => {
     fetchData();
-    // Refresh every 5 seconds
+
     const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
   }, []);

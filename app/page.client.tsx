@@ -56,7 +56,7 @@ function UltraPremiumNavbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-gradient-to-r from-black via-black/98 to-black/95 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between gap-8">
-          {/* Logo & Branding - LEFT */}
+
           <div className="flex items-center gap-3 flex-shrink-0">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#C084FC] via-[#9BFFB0] to-[#6EDBD6] flex items-center justify-center shadow-[0_0_20px_rgba(192,132,252,0.3)]">
               <span className="text-white font-black text-xl">⚡</span>
@@ -74,7 +74,7 @@ function UltraPremiumNavbar() {
             </div>
           </div>
 
-          {/* Desktop Navigation - CENTER */}
+          
           <div className="hidden lg:flex items-center">
             <CardNav
               logo={null}
@@ -84,7 +84,7 @@ function UltraPremiumNavbar() {
             />
           </div>
 
-          {/* Right Actions - LINKS + CTA */}
+          
           <div className="flex items-center gap-3 ml-auto">
             <Link
               href="https://github.com"
@@ -99,7 +99,7 @@ function UltraPremiumNavbar() {
               Docs
             </Link>
             
-            {/* Auth-aware CTA button and profile */}
+            
             <SignedOut>
               <Link
                 href="/sign-in"
@@ -141,17 +141,17 @@ function HeroSection() {
 
   return (
     <section className="relative pt-32 pb-20 min-h-screen flex items-center justify-center overflow-hidden">
-      {/* LaserFlow ONLY in Hero Section - z-0, positioned RIGHT */}
+
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden flex items-center justify-end pr-40">
         <div className="w-2/3 h-full">
           <LaserFlowBG />
         </div>
       </div>
 
-      {/* LEFT: Branding Column - z-10 */}
+
       <div className="flex-1 px-8 md:px-12 z-10 relative">
         <div className="max-w-2xl">
-          {/* Badge */}
+
           <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 bg-[#C084FC]/10 border border-[#C084FC]/30 rounded-full backdrop-blur-sm">
             <span className="w-2.5 h-2.5 bg-[#9BFFB0] rounded-full animate-pulse"></span>
             <span className="text-sm text-[#C084FC] font-semibold">
@@ -159,7 +159,7 @@ function HeroSection() {
             </span>
           </div>
 
-          {/* Main Headline */}
+
           <h1 className="text-6xl md:text-7xl font-black text-white leading-tight mb-6 tracking-tight">
             Control Your <br />
             <span className="bg-gradient-to-r from-[#C084FC] via-[#9BFFB0] to-[#6EDBD6] bg-clip-text text-transparent">
@@ -167,13 +167,13 @@ function HeroSection() {
             </span>
           </h1>
 
-          {/* Subheading */}
+
           <p className="text-xl md:text-2xl text-white/70 mb-8 max-w-xl leading-relaxed font-light">
             The AI-powered control plane for teams that demand safety, speed,
             and confidence in every deployment.
           </p>
 
-          {/* Three-Column Value Props */}
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="flex gap-3">
               <div className="w-10 h-10 rounded-lg bg-[#9BFFB0]/20 flex items-center justify-center flex-shrink-0 mt-1">
@@ -210,7 +210,7 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Primary CTA Buttons - Auth-aware */}
+
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
             {isSignedIn ? (
               <Link
@@ -235,7 +235,7 @@ function HeroSection() {
             </Link>
           </div>
 
-          {/* Trust Signals */}
+
           <div className="flex items-center gap-8">
             <div>
               <p className="text-3xl font-black text-[#9BFFB0]">500+</p>
@@ -255,7 +255,7 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Empty right column - no floating card here */}
+      
       <div className="flex-1 hidden lg:block"></div>
     </section>
   );
@@ -265,7 +265,6 @@ function DashboardSection() {
   return (
     <section className="relative py-24 px-8 md:px-12 bg-black overflow-hidden">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#C084FC]/10 border border-[#C084FC]/30 rounded-full mb-6">
             <span className="w-2 h-2 bg-[#C084FC] rounded-full"></span>
@@ -282,18 +281,18 @@ function DashboardSection() {
           </p>
         </div>
 
-        {/* Premium Card - GROUNDED, NOT FLOATING */}
+
         <div className="relative w-full max-w-3xl mx-auto">
-          {/* Card with Enhanced Border Glow */}
+
           <div className="relative border-2 border-[#C084FC]/40 bg-[#0B0F1A]/70 backdrop-blur-3xl rounded-3xl p-10 overflow-hidden shadow-[0_20px_60px_rgba(192,132,252,0.2)]">
-            {/* Animated Gradient Border */}
+
             <div className="absolute inset-0 bg-gradient-to-br from-[#C084FC]/10 to-transparent rounded-3xl pointer-events-none"></div>
 
-            {/* Top Glow Bar */}
+
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-[#C084FC] to-transparent shadow-[0_0_30px_rgba(192,132,252,0.8)]"></div>
 
             <div className="relative z-10">
-              {/* Status Badge */}
+
               <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 bg-[#9BFFB0]/15 border border-[#9BFFB0]/30 rounded-full">
                 <span className="w-2 h-2 bg-[#9BFFB0] rounded-full animate-pulse"></span>
                 <span className="text-sm text-[#9BFFB0] font-semibold">
@@ -301,14 +300,14 @@ function DashboardSection() {
                 </span>
               </div>
 
-              {/* Title */}
+
               <h3 className="text-3xl font-bold text-white mb-8">
                 Kubernetes Dashboard
               </h3>
 
-              {/* Two-Column Layout */}
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                {/* Command Palette - Left */}
+
                 <div>
                   <p className="text-xs text-white/50 uppercase tracking-widest font-mono mb-4">
                     Command Palette
@@ -338,7 +337,7 @@ function DashboardSection() {
                   </div>
                 </div>
 
-                {/* Live Stats - Right */}
+
                 <div>
                   <p className="text-xs text-white/50 uppercase tracking-widest font-mono mb-4">
                     Live Metrics
@@ -374,7 +373,7 @@ function DashboardSection() {
                 </div>
               </div>
 
-              {/* Activity Feed */}
+
               <div className="mb-8">
                 <p className="text-xs text-white/50 uppercase tracking-widest font-mono mb-4">
                   Recent Activity
@@ -459,7 +458,6 @@ function FeaturesSection() {
   return (
     <section className="relative py-24 px-8 md:px-12 bg-gradient-to-b from-black via-[#0A0E1B]/30 to-black overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#C084FC]/10 border border-[#C084FC]/30 rounded-full mb-6">
             <span className="w-2 h-2 bg-[#C084FC] rounded-full"></span>
@@ -476,7 +474,7 @@ function FeaturesSection() {
           </p>
         </div>
 
-        {/* Features Grid */}
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, idx) => (
             <div
@@ -565,7 +563,7 @@ function PricingSection() {
           </p>
         </div>
 
-        {/* Pricing Cards */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan, idx) => (
             <div
@@ -667,17 +665,17 @@ function TestimonialsSection() {
           </h2>
         </div>
 
-        {/* Testimonials Grid */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, idx) => (
             <div
               key={idx}
               className="p-8 bg-[#0B0F1A]/40 border border-white/5 rounded-2xl hover:border-[#C084FC]/30 transition-all duration-300"
             >
-              {/* Stars */}
+
               <div className="mb-4 text-xl">⭐⭐⭐⭐⭐</div>
 
-              {/* Quote */}
+
               <p className="text-white/80 mb-6 leading-relaxed italic">
                 &ldquo;{testimonial.quote}&rdquo;
               </p>

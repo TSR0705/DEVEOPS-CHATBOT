@@ -13,14 +13,7 @@ export async function GET(_request: NextRequest) {
       );
     }
 
-    // Allow any authenticated user to check execution status for polling
-    // TODO: In production, consider limiting this to user's own executions
-    // if (identity.role !== "ADMIN") {
-    //   return Response.json(
-    //     { error: "Forbidden: Admin role required" },
-    //     { status: 403 }
-    //   );
-    // }
+
 
     const executionState = getExecutionState();
 

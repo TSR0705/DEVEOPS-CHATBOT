@@ -12,7 +12,6 @@ import { startWorkerOnce } from "@/lib/bootstrap/workerBootstrap";
 import { StructuredLogger, generateExecutionId } from "../../../lib/logging/structuredLogger";
 import { AuthenticationError, ValidationError, QuotaExceededError } from "../../../lib/errors/userError";
 
-// Export function to get the queue for external access
 export function getQueue() {
   return getSharedQueue();
 }
@@ -31,7 +30,6 @@ export async function GET(_request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  // Initialize worker on first request (not at module load time to avoid circular dependency)
   startWorkerOnce();
 
   const executionId = generateExecutionId();
@@ -57,7 +55,7 @@ export async function POST(request: NextRequest) {
 
     const parsed = parseCommand(message);
 
-    // Handle HELP commands
+
     if (parsed.type === "HELP") {
       const { generateHelpContent } = await import("../../../lib/help/helpContent");
       const helpContent = generateHelpContent(identity.role);
@@ -72,10 +70,10 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Handle READ commands
+
     if (parsed.type === "READ") {
       if (parsed.rawText.includes("status") || parsed.rawText === "status") {
-        // Get real system and Kubernetes status
+
         try {
           const { getExecutionState } = await import("../../../lib/observability/executionState");
           const { getK8sExecutor } = await import("../../../lib/k8s/client");
@@ -121,7 +119,7 @@ export async function POST(request: NextRequest) {
       }
       
       if (parsed.rawText.includes("pods") || parsed.rawText.includes("show")) {
-        // Get real pod information
+
         try {
           const { getK8sExecutor } = await import("../../../lib/k8s/client");
           const k8sExecutor = getK8sExecutor();
@@ -162,7 +160,7 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Default read response
+
       return Response.json({
         type: "READ",
         status: "success",
@@ -177,14 +175,14 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Handle DRY_RUN commands
+
     if (parsed.type === "DRY_RUN") {
       let simulationResult = "Simulation completed - no changes would be made.";
       let warnings: string[] = ["⚠️ This is a simulation only", "⚠️ No actual changes applied"];
       let preview = null;
       
       if (parsed.action === "SCALE" && parsed.targetReplicas !== undefined) {
-        // Get current replica count for accurate preview
+        
         try {
           const { getK8sExecutor } = await import("../../../lib/k8s/client");
           const k8sExecutor = getK8sExecutor();
@@ -256,7 +254,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Handle EXECUTE commands - validation and queueing
+
     if (parsed.action === "SCALE" && parsed.targetReplicas !== undefined) {
       if (parsed.targetReplicas < 1 || parsed.targetReplicas > 5) {
         const error = new ValidationError(
