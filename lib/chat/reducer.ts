@@ -1,9 +1,4 @@
-/**
- * Pure Chat Reducer
- * - No fetch, no timers, no side effects
- * - Only ONE executing command at a time
- * - Queue position preserved
- */
+
 
 import { ChatContextType, ChatAction } from "./types";
 
@@ -34,9 +29,61 @@ export function chatReducer(
       };
     }
 
-    case "SET_QUEUED": {
-      // Enqueue system message, increment queue
-      const newQueueLength = state.queueLength + 1;
+    case "SET_HELP_RESPONSE": {
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          {
+            id: action.payload.id,
+            role: "help",
+            helpContent: action.payload.helpContent,
+            ts: action.payload.ts,
+          },
+        ],
+      };
+    }
+
+    case "SET_READ_RESPONSE": {
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          {
+            id: action.payload.id,
+            role: "read",
+            subtype: action.payload.subtype,
+            data: action.payload.data,
+            system: action.payload.system,
+            kubernetes: action.payload.kubernetes,
+            pods: action.payload.pods,
+            summary: action.payload.summary,
+            output: action.payload.output,
+            ts: action.payload.ts,
+          },
+        ],
+      };
+    }
+
+    case "SET_DRYRUN_RESPONSE": {
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          {
+            id: action.payload.id,
+            role: "dryrun",
+            action: action.payload.action,
+            preview: action.payload.preview,
+            simulation: action.payload.simulation,
+            output: action.payload.output,
+            ts: action.payload.ts,
+          },
+        ],
+      };
+    }
+
+    case "SET_ACCEPTED": {
       return {
         ...state,
         messages: [
@@ -44,18 +91,47 @@ export function chatReducer(
           {
             id: action.payload.id,
             role: "system",
-            state: "queued",
+            state: "accepted",
+            commandId: action.payload.commandId,
+            executionId: action.payload.executionId,
+            action: action.payload.action,
+            target: action.payload.target,
+            intent: action.payload.intent,
+            before: action.payload.before,
+            after: action.payload.after,
+            phase: action.payload.phase,
             meta: action.payload.meta,
             ts: action.payload.ts,
           },
         ],
-        queueLength: newQueueLength,
+        queueLength: state.queueLength + 1,
+      };
+    }
+
+    case "SET_QUEUED": {
+      const updatedMessages = state.messages.map(msg => {
+        if (
+          msg.role === "system" &&
+          msg.state === "accepted" &&
+          msg.id === action.payload.id
+        ) {
+          return {
+            ...msg,
+            state: "queued" as const,
+            ts: action.payload.ts,
+          };
+        }
+        return msg;
+      });
+
+      return {
+        ...state,
+        messages: updatedMessages,
+        state: "queued",
       };
     }
 
     case "SET_EXECUTING": {
-      // Only ONE executing at a time
-      // Decrement queue, set current command
       if (state.currentCommandId !== null) {
         console.warn(
           "chatReducer: Attempted to execute while already executing. This should not happen."
@@ -63,7 +139,6 @@ export function chatReducer(
         return state;
       }
 
-      // Find queued message and update it
       const updatedMessages = state.messages.map(msg => {
         if (
           msg.role === "system" &&
@@ -89,20 +164,19 @@ export function chatReducer(
     }
 
     case "SET_RESULT": {
-      // Execution complete, clear current command
-      // Add result message with a unique ID to avoid key conflicts
       const resultMessageId = `${action.payload.id}-result`;
 
-      // Add result message
       const newResultMessage = {
         id: resultMessageId,
         role: "result" as const,
         status: action.payload.status,
         output: action.payload.output,
+        commandId: action.payload.commandId,
+        executionId: action.payload.executionId,
+        proof: action.payload.proof,
         ts: action.payload.ts,
       };
 
-      // If queue is not empty, stay queued, else idle
       const nextState = state.queueLength > 0 ? "queued" : "idle";
 
       return {
@@ -110,6 +184,13 @@ export function chatReducer(
         messages: [...state.messages, newResultMessage],
         state: nextState,
         currentCommandId: null,
+      };
+    }
+
+    case "UPDATE_QUEUE_LENGTH": {
+      return {
+        ...state,
+        queueLength: action.payload,
       };
     }
 
