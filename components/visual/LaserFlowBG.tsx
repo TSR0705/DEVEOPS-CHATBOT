@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 
-// Dynamically import LaserFlow to avoid SSR issues
 const LaserFlow = dynamic(() => import("./LaserFlow"), { ssr: false });
 
 type State = "idle" | "queued" | "executing" | "success" | "error";
@@ -23,8 +22,6 @@ export default function LaserFlowBG({
   state: State;
   variant: Variant;
 }) {
-  // Always render the container div to prevent hydration issues
-  // The LaserFlow component will handle the safety checks internally
   return (
     <div
       id="laserflow-root"
@@ -35,11 +32,10 @@ export default function LaserFlowBG({
         mouseTiltStrength={0}
         verticalBeamOffset={-0.15}
         wispIntensity={variant === "hero" ? 3 : 1.5}
-        fogIntensity={variant === "hero" ? 0.35 * 0.7 : 0.2 * 0.7} // Reduced by 30%
+        fogIntensity={variant === "hero" ? 0.35 * 0.7 : 0.2 * 0.7} 
         color={STATE_COLOR[state]}
       />
     </div>
   );
 }
 
-// Phase 5.3 hydration-safe LaserFlow implementation
