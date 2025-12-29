@@ -1,4 +1,3 @@
-// ONLY client component (chat input)
 "use client";
 
 export default function ChatClient() {
