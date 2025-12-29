@@ -1,6 +1,4 @@
-# LoadLab Service - enables traffic routing and readiness behavior
-# Service is required to observe readiness behavior as it controls traffic distribution
-# Traffic routing is the proof mechanism for readiness vs liveness behavior
+
 apiVersion: v1
 kind: Service
 metadata:
