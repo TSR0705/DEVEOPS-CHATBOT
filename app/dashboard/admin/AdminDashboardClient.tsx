@@ -289,7 +289,7 @@ export default function AdminDashboardClient() {
                       {systemStatus.system.lastResult.message}
                     </p>
                     <p className="text-white/50 text-xs mt-2">
-                      {formatTimestamp(systemStatus.system.lastResult.timestamp)}
+                      {systemStatus.system.lastResult.timestamp ? formatTimestamp(systemStatus.system.lastResult.timestamp) : 'Unknown time'}
                     </p>
                   </div>
                 </div>
@@ -319,7 +319,7 @@ export default function AdminDashboardClient() {
                       {healthStatus.execution.lastError.message}
                     </p>
                     <p className="text-white/50 text-xs">
-                      {formatTimestamp(healthStatus.execution.lastError.timestamp)}
+                      {healthStatus.execution.lastError.timestamp ? formatTimestamp(healthStatus.execution.lastError.timestamp) : 'Unknown time'}
                     </p>
                   </div>
                 </div>

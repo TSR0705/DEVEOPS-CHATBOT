@@ -1,10 +1,11 @@
+import React from "react";
 import type { ChatMessage } from "@/lib/chat/types";
 
 interface ChatMessageProps {
   message: ChatMessage;
 }
 
-export function ChatMessage({ message }: ChatMessageProps) {
+export function ChatMessage({ message }: ChatMessageProps): React.ReactElement | null {
   if (message.role === "user") {
     return (
       <div className="text-sm text-[#E2E6F0] font-mono p-3 bg-[#0A0E1B]/50 rounded-lg mb-2 border-l-4 border-[#6EDBD6] hover:bg-[#0A0E1B]/70 transition-colors group">
@@ -383,7 +384,9 @@ export function ChatMessage({ message }: ChatMessageProps) {
   }
 
   if (message.role === "result") {
-    const isSuccess = message.status === "success";
+    // Type assertion to help TypeScript understand the message structure
+    const resultMessage = message as Extract<ChatMessage, { role: "result" }>;
+    const isSuccess = resultMessage.status === "success";
     const icon = isSuccess ? "✅" : "❌";
     const borderColor = isSuccess ? "border-[#9BFFB0]" : "border-[#C94A5A]";
     const bgColor = isSuccess ? "bg-[#0A0E1B]/50" : "bg-[#0A0E1B]/50";
@@ -400,36 +403,34 @@ export function ChatMessage({ message }: ChatMessageProps) {
               {isSuccess ? "Command completed successfully" : "Command failed"}
             </div>
             
-            {/* Step 3: Result */}
             <div className="mb-4">
               <div className="text-[#9BFFB0] font-bold mb-2 text-sm">Step 3: Result</div>
               <div className="text-[#E2E6F0] text-sm whitespace-pre-line leading-relaxed ml-4">
-                {message.output}
+                {String(resultMessage.output || "No output available")}
               </div>
             </div>
             
-            {/* Show proof of execution for successful commands */}
-            {isSuccess && message.proof && (
+            {isSuccess && resultMessage.proof && typeof resultMessage.proof === 'object' && resultMessage.proof !== null ? (
               <div className="mb-4">
                 <div className="text-[#9BFFB0] font-bold mb-2 text-sm">Step 4: Verification</div>
                 <div className="bg-[#0F1426] p-3 rounded border border-[rgba(255,255,255,0.075)]">
                   <div className="text-[#9BFFB0] font-bold text-sm mb-2">🔍 Execution Proof</div>
                   <div className="text-[#E2E6F0] text-sm space-y-1 ml-4">
-                    {Object.entries(message.proof).map(([key, value]) => (
+                    {Object.entries(resultMessage.proof as Record<string, unknown>).map(([key, value]) => (
                       <div key={key}>• {key}: <span className="text-[#6EDBD6]">{String(value)}</span></div>
                     ))}
                   </div>
                 </div>
               </div>
-            )}
+            ) : null}
             
             <div className="text-xs text-[#6E748A] mt-3 pt-2 border-t border-[rgba(255,255,255,0.1)]">
-              {new Date(message.ts).toLocaleTimeString()}
+              {new Date(resultMessage.ts).toLocaleTimeString()}
             </div>
           </div>
         </div>
       </div>
-    );
+    ) as React.ReactElement;
   }
 
   return null;
