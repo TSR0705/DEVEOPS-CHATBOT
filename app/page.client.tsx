@@ -2,16 +2,16 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useUser, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import LaserFlowBG from "@/components/laser/LaserFlowBG";
 
 const CardNav = dynamic(() => import("@/components/nav/CardNav"), {
   ssr: false,
 });
 
-// ============================================================================
-// ULTRA PREMIUM NAVBAR WITH MEGA MENU
-// ============================================================================
 function UltraPremiumNavbar() {
+  const { isSignedIn, user } = useUser();
+
   const navItems = [
     {
       label: "Product",
@@ -98,12 +98,37 @@ function UltraPremiumNavbar() {
             >
               Docs
             </Link>
-            <Link
-              href="/dashboard"
-              className="px-6 py-2.5 bg-gradient-to-r from-[#C084FC] via-[#9BFFB0] to-[#6EDBD6] text-black font-bold rounded-xl hover:shadow-[0_0_40px_rgba(192,132,252,0.5)] transition-all duration-300 text-sm tracking-wide btn-premium"
-            >
-              Launch →
-            </Link>
+            
+            {/* Auth-aware CTA button and profile */}
+            <SignedOut>
+              <Link
+                href="/sign-in"
+                className="px-6 py-2.5 bg-gradient-to-r from-[#C084FC] via-[#9BFFB0] to-[#6EDBD6] text-black font-bold rounded-xl hover:shadow-[0_0_40px_rgba(192,132,252,0.5)] transition-all duration-300 text-sm tracking-wide btn-premium"
+              >
+                Sign In →
+              </Link>
+            </SignedOut>
+            
+            <SignedIn>
+              <Link
+                href="/dashboard"
+                className="px-6 py-2.5 bg-gradient-to-r from-[#C084FC] via-[#9BFFB0] to-[#6EDBD6] text-black font-bold rounded-xl hover:shadow-[0_0_40px_rgba(192,132,252,0.5)] transition-all duration-300 text-sm tracking-wide btn-premium"
+              >
+                Dashboard →
+              </Link>
+              <UserButton 
+                appearance={{
+                  elements: {
+                    avatarBox: "w-10 h-10",
+                    userButtonPopoverCard: "bg-black border border-white/20",
+                    userButtonPopoverActionButton: "text-white hover:bg-white/10",
+                    userButtonPopoverActionButtonText: "text-white",
+                    userButtonPopoverFooter: "hidden"
+                  }
+                }}
+                afterSignOutUrl="/"
+              />
+            </SignedIn>
           </div>
         </div>
       </div>
@@ -111,10 +136,9 @@ function UltraPremiumNavbar() {
   );
 }
 
-// ============================================================================
-// HERO SECTION WITH LASERFLOW ONLY IN THIS SECTION
-// ============================================================================
 function HeroSection() {
+  const { isSignedIn } = useUser();
+
   return (
     <section className="relative pt-32 pb-20 min-h-screen flex items-center justify-center overflow-hidden">
       {/* LaserFlow ONLY in Hero Section - z-0, positioned RIGHT */}
@@ -186,14 +210,23 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Primary CTA Buttons */}
+          {/* Primary CTA Buttons - Auth-aware */}
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
-            <Link
-              href="/dashboard"
-              className="px-10 py-4 bg-gradient-to-r from-[#C084FC] to-[#9BFFB0] text-black font-bold rounded-xl hover:shadow-[0_0_50px_rgba(192,132,252,0.6)] transition-all duration-300 text-center text-lg btn-premium"
-            >
-              Start Free Trial
-            </Link>
+            {isSignedIn ? (
+              <Link
+                href="/dashboard"
+                className="px-10 py-4 bg-gradient-to-r from-[#C084FC] to-[#9BFFB0] text-black font-bold rounded-xl hover:shadow-[0_0_50px_rgba(192,132,252,0.6)] transition-all duration-300 text-center text-lg btn-premium"
+              >
+                Go to Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/sign-in"
+                className="px-10 py-4 bg-gradient-to-r from-[#C084FC] to-[#9BFFB0] text-black font-bold rounded-xl hover:shadow-[0_0_50px_rgba(192,132,252,0.6)] transition-all duration-300 text-center text-lg btn-premium"
+              >
+                Get Started
+              </Link>
+            )}
             <Link
               href="#"
               className="px-10 py-4 border-2 border-white/20 text-white font-bold rounded-xl hover:bg-white/5 hover:border-[#C084FC]/50 transition-all duration-300 text-center text-lg"
@@ -228,9 +261,6 @@ function HeroSection() {
   );
 }
 
-// ============================================================================
-// KUBERNETES DASHBOARD CARD SECTION (GROUNDED, NOT FLOATING)
-// ============================================================================
 function DashboardSection() {
   return (
     <section className="relative py-24 px-8 md:px-12 bg-black overflow-hidden">
@@ -386,9 +416,6 @@ function DashboardSection() {
   );
 }
 
-// ============================================================================
-// FEATURES SECTION
-// ============================================================================
 function FeaturesSection() {
   const features = [
     {
@@ -471,9 +498,6 @@ function FeaturesSection() {
   );
 }
 
-// ============================================================================
-// PRICING SECTION
-// ============================================================================
 function PricingSection() {
   const plans = [
     {
@@ -602,9 +626,6 @@ function PricingSection() {
   );
 }
 
-// ============================================================================
-// TESTIMONIALS SECTION
-// ============================================================================
 function TestimonialsSection() {
   const testimonials = [
     {
@@ -679,9 +700,6 @@ function TestimonialsSection() {
   );
 }
 
-// ============================================================================
-// FOOTER
-// ============================================================================
 function FooterSection() {
   return (
     <footer className="relative py-16 px-8 md:px-12 border-t border-white/5 bg-black">
@@ -755,9 +773,6 @@ function FooterSection() {
   );
 }
 
-// ============================================================================
-// MAIN EXPORT
-// ============================================================================
 export default function LandingPageClient() {
   return (
     <main className="relative bg-black overflow-hidden">
