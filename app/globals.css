@@ -1,5 +1,4 @@
-/* Phase 5.1 — Global Styles */
-/* Clean neutral palette, no animations, Lighthouse-safe */
+
 
 @import "tailwindcss";
 
@@ -8,11 +7,9 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* slate-50 */ /* slate-900 */
-  --muted: oklch(0.968 0.007 247.896); /* slate-500 */
-  --border: oklch(0.929 0.013 255.508); /* slate-200 */
+  --muted: oklch(0.968 0.007 247.896);
+  --border: oklch(0.929 0.013 255.508);
 
-  /* Bio-luminescent theme colors */
   --bg-root: #020409;
   --bg-surface: #060812;
   --bg-panel: #0a0e1b;
@@ -22,8 +19,8 @@
   --text-primary: #e2e6f0;
   --text-secondary: #a1a8bc;
   --text-muted: #6e748a;
-  --accent-primary: #9bffb0; /* bio-lime */
-  --accent-signal: #6edbd6; /* cyan-ash */
+  --accent-primary: #9bffb0;
+  --accent-signal: #6edbd6;
   --accent-warn: #d6a65a;
   --accent-error: #c94a5a;
 
@@ -155,7 +152,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -228,7 +224,6 @@ body {
     animation: glow 3s ease-in-out infinite;
   }
 
-  /* Navigation styles */
   .nav-menu-icon {
     transition: color 0.3s ease;
   }
@@ -245,7 +240,6 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   }
 
-  /* Activity status colors */
   .activity-success {
     color: #9bffb0;
   }
@@ -258,7 +252,6 @@ body {
     color: #d6a65a;
   }
 
-  /* Status indicator colors */
   .status-success {
     background-color: #9bffb0;
   }
@@ -271,7 +264,6 @@ body {
     background-color: #c94a5a;
   }
 
-  /* Laserflow container */
   @media (prefers-reduced-motion: reduce) {
     .laserflow-container {
       display: none;
