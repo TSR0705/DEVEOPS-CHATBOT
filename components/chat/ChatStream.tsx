@@ -1,9 +1,3 @@
-/**
- * ChatStream - Read-only message renderer
- * Pure component - scrolls automatically on new messages
- * Monospace font, enhanced visual feedback, smooth animations
- */
-
 import { useEffect, useRef } from "react";
 import type { ChatMessage as ChatMessageType } from "@/lib/chat/types";
 import { ChatMessage } from "./ChatMessage";
@@ -15,28 +9,9 @@ interface ChatStreamProps {
 export function ChatStream({ messages }: ChatStreamProps) {
   const endRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom on new messages
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
-  // Calculate queue position for each queued message
-  const getQueuePosition = (messageId: string): number => {
-    let position = 0;
-    for (const msg of messages) {
-      if (
-        msg.role === "system" &&
-        msg.state === "queued" &&
-        msg.id === messageId
-      ) {
-        return position + 1;
-      }
-      if (msg.role === "system" && msg.state === "queued") {
-        position++;
-      }
-    }
-    return 0;
-  };
 
   return (
     <div className="flex-1 overflow-y-auto bg-[#060812] p-4 font-mono text-sm scroll-smooth">
@@ -53,10 +28,7 @@ export function ChatStream({ messages }: ChatStreamProps) {
         )}
         {messages.map(msg => (
           <div key={msg.id} className="animate-fade-in duration-300">
-            <ChatMessage
-              message={msg}
-              queuePosition={getQueuePosition(msg.id)}
-            />
+            <ChatMessage message={msg} />
           </div>
         ))}
         <div ref={endRef} />
