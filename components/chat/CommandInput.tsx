@@ -1,21 +1,16 @@
-/**
- * CommandInput - Terminal-style input
- * Single line, monospace
- * Disabled while executing
- * Validates command verbs: scale, status, restart, help
- * Enhanced with better visual feedback and error handling
- */
+
 
 import { useRef, useState } from "react";
 
 interface CommandInputProps {
   onSubmit: (command: string) => void;
   disabled: boolean;
+  placeholder?: string;
 }
 
 const ALLOWED_VERBS = ["scale", "status", "restart", "help"];
 
-export function CommandInput({ onSubmit, disabled }: CommandInputProps) {
+export function CommandInput({ onSubmit, disabled, placeholder }: CommandInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string>("");
   const [history, setHistory] = useState<string[]>([]);
@@ -24,7 +19,7 @@ export function CommandInput({ onSubmit, disabled }: CommandInputProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const value = inputRef.current?.value.trim() || "";
 
-    // Navigate history with arrow keys
+
     if (e.key === "ArrowUp" && history.length > 0) {
       e.preventDefault();
       const newIndex = Math.min(historyIndex + 1, history.length - 1);
@@ -55,33 +50,33 @@ export function CommandInput({ onSubmit, disabled }: CommandInputProps) {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      // Reject empty
+
       if (!value) {
         setError("Command cannot be empty");
         setTimeout(() => setError(""), 3000);
         return;
       }
 
-      // Extract verb (first word)
+
       const verb = value.split(" ")[0].toLowerCase();
 
-      // Reject if not in allowed verbs
+
       if (!ALLOWED_VERBS.includes(verb)) {
         setError(`Unknown command: ${verb}. Try: ${ALLOWED_VERBS.join(", ")}`);
         setTimeout(() => setError(""), 4000);
         return;
       }
 
-      // Clear error on success
+
       setError("");
 
-      // Add to history
+
       setHistory([value, ...history.slice(0, 49)]);
       setHistoryIndex(-1);
 
       onSubmit(value);
 
-      // Clear input
+
       if (inputRef.current) {
         inputRef.current.value = "";
       }
@@ -99,7 +94,7 @@ export function CommandInput({ onSubmit, disabled }: CommandInputProps) {
         <input
           ref={inputRef}
           type="text"
-          placeholder="Enter command: scale, status, restart, help"
+          placeholder={placeholder || "Enter command: scale, status, restart, help"}
           onKeyDown={handleKeyDown}
           disabled={disabled}
           className="flex-1 bg-transparent text-[#E2E6F0] outline-none placeholder-[#6E748A] disabled:opacity-50 disabled:cursor-not-allowed focus:ring-0 focus:outline-none transition-all group-hover:text-[#9BFFB0]"
