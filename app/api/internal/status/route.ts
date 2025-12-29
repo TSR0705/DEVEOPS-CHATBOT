@@ -2,12 +2,11 @@ import { NextRequest } from "next/server";
 import { getUserIdentity } from "../../../../lib/auth/identity";
 import { getExecutionState } from "../../../../lib/observability/executionState";
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
-    let identity;
     try {
-      identity = await getUserIdentity();
-    } catch (authError) {
+      await getUserIdentity();
+    } catch (_authError) {
       return Response.json(
         { error: "Unauthorized: Authentication required" },
         { status: 401 }

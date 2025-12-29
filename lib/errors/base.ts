@@ -4,13 +4,13 @@ export abstract class BaseError extends Error {
   public readonly errorType: string;
   public readonly executionId?: string;
   public readonly timestamp: number;
-  public readonly metadata?: Record<string, any>;
+  public readonly metadata?: Record<string, unknown>;
 
   constructor(
     message: string,
     errorType: string,
     executionId?: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ) {
     super(message);
     this.name = this.constructor.name;
@@ -19,17 +19,14 @@ export abstract class BaseError extends Error {
     this.timestamp = Date.now();
     this.metadata = metadata;
 
-
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, this.constructor);
     }
   }
 
-
   abstract getHttpStatus(): number;
 
-
-  toApiResponse(): Record<string, any> {
+  toApiResponse(): Record<string, unknown> {
     return {
       error: this.message,
       errorType: this.errorType,
@@ -38,8 +35,7 @@ export abstract class BaseError extends Error {
     };
   }
 
-
-  toLogEntry(): Record<string, any> {
+  toLogEntry(): Record<string, unknown> {
     return {
       errorType: this.errorType,
       message: this.message,

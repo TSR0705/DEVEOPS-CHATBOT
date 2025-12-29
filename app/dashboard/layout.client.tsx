@@ -1,43 +1,6 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import React, { ReactNode } from "react";
-
-
-const items = [
-  {
-    label: "Dashboard",
-    bgColor: "#0D0716",
-    textColor: "#ffffff",
-    links: [
-      {
-        label: "Overview",
-        href: "/dashboard",
-        ariaLabel: "Dashboard Overview",
-      },
-      { label: "Resources", href: "#", ariaLabel: "Resources" },
-    ],
-  },
-  {
-    label: "Tools",
-    bgColor: "#170D27",
-    textColor: "#ffffff",
-    links: [
-      { label: "Load Testing", href: "#", ariaLabel: "Load Testing" },
-      { label: "Analytics", href: "#", ariaLabel: "Analytics" },
-    ],
-  },
-  {
-    label: "Support",
-    bgColor: "#271E37",
-    textColor: "#ffffff",
-    links: [
-      { label: "Documentation", href: "#", ariaLabel: "Documentation" },
-      { label: "GitHub Issues", href: "#", ariaLabel: "GitHub Issues" },
-    ],
-  },
-];
-
 
 export default function DashboardLayoutClient({
   children,

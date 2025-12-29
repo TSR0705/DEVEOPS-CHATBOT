@@ -37,7 +37,7 @@ export function ChatShell() {
   // Handle execution state changes from polling
   const handleExecutionStateChange = useCallback((
     newState: 'queued' | 'executing' | 'completed' | 'failed',
-    result?: any
+    result?: { message?: string; proof?: unknown }
   ) => {
     if (!activeExecution) return;
 

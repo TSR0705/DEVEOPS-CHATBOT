@@ -8,7 +8,7 @@ export interface LogEntry {
   timestamp: number;
   message: string;
   level: "info" | "error" | "warn";
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export class StructuredLogger {
@@ -22,7 +22,7 @@ export class StructuredLogger {
     console.log(JSON.stringify(logData));
   }
 
-  static info(executionId: string, phase: LogEntry['phase'], message: string, metadata?: Record<string, any>): void {
+  static info(executionId: string, phase: LogEntry['phase'], message: string, metadata?: Record<string, unknown>): void {
     this.log({
       executionId,
       phase,
@@ -33,7 +33,7 @@ export class StructuredLogger {
     });
   }
 
-  static error(executionId: string, phase: LogEntry['phase'], message: string, metadata?: Record<string, any>): void {
+  static error(executionId: string, phase: LogEntry['phase'], message: string, metadata?: Record<string, unknown>): void {
     this.log({
       executionId,
       phase,
@@ -44,7 +44,7 @@ export class StructuredLogger {
     });
   }
 
-  static warn(executionId: string, phase: LogEntry['phase'], message: string, metadata?: Record<string, any>): void {
+  static warn(executionId: string, phase: LogEntry['phase'], message: string, metadata?: Record<string, unknown>): void {
     this.log({
       executionId,
       phase,

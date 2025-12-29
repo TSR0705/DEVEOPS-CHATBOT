@@ -43,7 +43,7 @@ export type ChatMessage =
       output: string;
       commandId?: string;
       executionId?: string;
-      proof?: any;
+      proof?: unknown;
       ts: number;
     }
   | {
@@ -70,8 +70,8 @@ export type ChatMessage =
       system?: {
         worker: "idle" | "executing";
         queueLength: number;
-        currentCommand?: any;
-        lastResult?: any;
+        currentCommand?: unknown;
+        lastResult?: unknown;
         uptime?: number;
       };
       kubernetes?: {
@@ -160,8 +160,8 @@ export type ChatAction =
         system?: {
           worker: "idle" | "executing";
           queueLength: number;
-          currentCommand?: any;
-          lastResult?: any;
+          currentCommand?: unknown;
+          lastResult?: unknown;
           uptime?: number;
         };
         kubernetes?: {
@@ -257,7 +257,7 @@ export type ChatAction =
         output: string;
         commandId?: string;
         executionId?: string;
-        proof?: any;
+        proof?: unknown;
         ts: number;
       };
     }

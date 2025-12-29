@@ -10,7 +10,7 @@ const CardNav = dynamic(() => import("@/components/nav/CardNav"), {
 });
 
 function UltraPremiumNavbar() {
-  const { isSignedIn, user } = useUser();
+  const { } = useUser();
 
   const navItems = [
     {

@@ -26,7 +26,7 @@ function generateCommandId(): string {
 }
 
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   return Response.json({ message: "Chat API is working", timestamp: Date.now() });
 }
 
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     let identity;
     try {
       identity = await getUserIdentity();
-    } catch (authError) {
+    } catch (_authError) {
       const error = new AuthenticationError(executionId);
       StructuredLogger.error(executionId, "queued", error.message, error.toLogEntry());
       return Response.json(error.toApiResponse(), { status: error.getHttpStatus() });
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
             role: identity.role,
             timestamp: Date.now(),
           });
-        } catch (error) {
+        } catch (_error) {
           return Response.json({
             type: "READ",
             subtype: "STATUS",
@@ -149,7 +149,7 @@ export async function POST(request: NextRequest) {
             role: identity.role,
             timestamp: Date.now(),
           });
-        } catch (error) {
+        } catch (_error) {
           return Response.json({
             type: "READ",
             subtype: "PODS",
@@ -214,7 +214,7 @@ export async function POST(request: NextRequest) {
               `💡 To execute: scale loadlab to ${parsed.targetReplicas}`
             ];
           }
-        } catch (error) {
+        } catch (_error) {
           simulationResult = `⚠️ SIMULATION: Cannot fetch current state, but would target ${parsed.targetReplicas} replicas`;
           warnings = [
             "⚠️ This is a simulation only",

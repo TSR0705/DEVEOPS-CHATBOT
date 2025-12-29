@@ -11,7 +11,7 @@ export class SystemError extends BaseError {
   constructor(
     message: string,
     executionId?: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ) {
     super(message, "SYSTEM_ERROR", executionId, metadata);
   }
@@ -22,25 +22,25 @@ export class SystemError extends BaseError {
 }
 
 export class WorkerError extends SystemError {
-  constructor(message: string, executionId?: string, metadata?: Record<string, any>) {
+  constructor(message: string, executionId?: string, metadata?: Record<string, unknown>) {
     super(`Worker error: ${message}`, executionId, metadata);
   }
 }
 
 export class MutexError extends SystemError {
-  constructor(message: string, executionId?: string, metadata?: Record<string, any>) {
+  constructor(message: string, executionId?: string, metadata?: Record<string, unknown>) {
     super(`Mutex error: ${message}`, executionId, metadata);
   }
 }
 
 export class StateError extends SystemError {
-  constructor(message: string, executionId?: string, metadata?: Record<string, any>) {
+  constructor(message: string, executionId?: string, metadata?: Record<string, unknown>) {
     super(`State error: ${message}`, executionId, metadata);
   }
 }
 
 export class TimeoutError extends SystemError {
-  constructor(operation: string, timeoutMs: number, executionId?: string, metadata?: Record<string, any>) {
+  constructor(operation: string, timeoutMs: number, executionId?: string, metadata?: Record<string, unknown>) {
     super(`Operation timeout: ${operation} exceeded ${timeoutMs}ms`, executionId, metadata);
   }
 }

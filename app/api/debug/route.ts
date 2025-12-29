@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { getExecutionState } from "../../../lib/observability/executionState";
 import { startWorkerOnce } from "../../../lib/bootstrap/workerBootstrap";
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     // Get current execution state
     const executionState = getExecutionState();

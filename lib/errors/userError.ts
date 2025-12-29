@@ -6,7 +6,7 @@ export class UserError extends BaseError {
   constructor(
     message: string,
     executionId?: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ) {
     super(message, "USER_ERROR", executionId, metadata);
   }
@@ -18,7 +18,7 @@ export class UserError extends BaseError {
 }
 
 export class AuthenticationError extends UserError {
-  constructor(executionId?: string, metadata?: Record<string, any>) {
+  constructor(executionId?: string, metadata?: Record<string, unknown>) {
     super("Authentication required", executionId, metadata);
   }
 
@@ -28,7 +28,7 @@ export class AuthenticationError extends UserError {
 }
 
 export class AuthorizationError extends UserError {
-  constructor(message: string = "Insufficient permissions", executionId?: string, metadata?: Record<string, any>) {
+  constructor(message: string = "Insufficient permissions", executionId?: string, metadata?: Record<string, unknown>) {
     super(message, executionId, metadata);
   }
 
@@ -38,13 +38,13 @@ export class AuthorizationError extends UserError {
 }
 
 export class ValidationError extends UserError {
-  constructor(message: string, executionId?: string, metadata?: Record<string, any>) {
+  constructor(message: string, executionId?: string, metadata?: Record<string, unknown>) {
     super(`Validation failed: ${message}`, executionId, metadata);
   }
 }
 
 export class QuotaExceededError extends UserError {
-  constructor(executionId?: string, metadata?: Record<string, any>) {
+  constructor(executionId?: string, metadata?: Record<string, unknown>) {
     super("Quota exceeded", executionId, metadata);
   }
 

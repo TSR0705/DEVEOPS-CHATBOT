@@ -30,7 +30,7 @@ app.post("/work", (req, res) => {
       message: `Work completed after ${durationMs}ms of CPU load`,
       stats: getStats(),
     });
-  } catch (error) {
+  } catch (_error) {
     // Clear overloaded status even if there's an error
     clearOverloaded();
     res.status(500).json({ error: "Work failed" });

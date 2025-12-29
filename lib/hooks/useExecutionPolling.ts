@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 interface ExecutionPollingOptions {
   commandId?: string;
   executionId?: string;
-  onStateChange: (state: 'queued' | 'executing' | 'completed' | 'failed', result?: any) => void;
+  onStateChange: (state: 'queued' | 'executing' | 'completed' | 'failed', result?: { message?: string; proof?: unknown }) => void;
   enabled: boolean;
 }
 

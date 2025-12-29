@@ -5,14 +5,14 @@ import { getExecutionState } from "../../../../lib/observability/executionState"
 import { AuthorizationError } from "../../../../lib/errors/userError";
 import { StructuredLogger, generateExecutionId } from "../../../../lib/logging/structuredLogger";
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const executionId = generateExecutionId();
   
   try {
     let identity;
     try {
       identity = await getUserIdentity();
-    } catch (authError) {
+    } catch (_authError) {
       const error = new AuthorizationError("Authentication required", executionId);
       StructuredLogger.error(executionId, "system", error.message, error.toLogEntry());
       return Response.json(error.toApiResponse(), { status: error.getHttpStatus() });

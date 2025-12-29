@@ -5,13 +5,27 @@ import { ChatShellWrapper } from "@/components/chat/ChatShellWrapper";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+interface CommandInfo {
+  id?: string;
+  action?: string;
+  status?: string;
+  timestamp?: number;
+}
+
+interface ResultInfo {
+  status?: string;
+  message?: string;
+  timestamp?: number;
+  executionId?: string;
+}
+
 interface SystemStatus {
   timestamp: number;
   system: {
     workerStatus: 'idle' | 'executing';
     queueLength: number;
-    currentCommand: any;
-    lastResult: any;
+    currentCommand: CommandInfo | null;
+    lastResult: ResultInfo | null;
   };
 }
 
@@ -25,9 +39,9 @@ interface HealthStatus {
     uptimeMs: number;
   };
   execution: {
-    currentCommand: any;
-    lastResult: any;
-    lastError: any;
+    currentCommand: CommandInfo | null;
+    lastResult: ResultInfo | null;
+    lastError: ResultInfo | null;
   };
 }
 

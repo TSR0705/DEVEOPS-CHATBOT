@@ -112,14 +112,14 @@ export class K8sClient implements K8sExecutor {
           }
         ];
 
-        await this.appsApi.patchNamespacedDeployment({
-          name: DEPLOYMENT_NAME,
-          namespace: NAMESPACE,
-          body: patch,
-          headers: {
-            'Content-Type': 'application/json-patch+json'
+        await this.appsApi.patchNamespacedDeployment(
+          {
+            name: DEPLOYMENT_NAME,
+            namespace: NAMESPACE,
+            body: patch,
+            ...{ 'Content-Type': 'application/json-patch+json' }
           }
-        });
+        );
         StructuredLogger.info(executionId || "system", "completed", "Scale operation succeeded", {
           deployment: DEPLOYMENT_NAME,
           namespace: NAMESPACE,

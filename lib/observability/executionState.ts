@@ -67,12 +67,11 @@ export function setQueueLength(length: number): void {
 }
 
 
-export function setCurrentCommand(command: any): void {
+export function setCurrentCommand(command: { parsed?: { action?: string; targetReplicas?: number } } | null): void {
   if (!command) {
     executionState.currentCommand = null;
     return;
   }
-
 
   executionState.currentCommand = {
     action: command.parsed?.action || "unknown",
