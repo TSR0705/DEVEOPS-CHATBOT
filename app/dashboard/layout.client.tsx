@@ -3,8 +3,6 @@
 import dynamic from "next/dynamic";
 import React, { ReactNode } from "react";
 
-// Dynamically import CardNav with ssr: false to prevent hydration issues
-// const CardNav = dynamic(() => import("../../components/nav/CardNav"), { ssr: false });
 
 const items = [
   {
@@ -40,8 +38,7 @@ const items = [
   },
 ];
 
-// Phase 5.3 LaserFlow integrated safely and verified
-// Enhanced dashboard layout with improved nav and styling
+
 export default function DashboardLayoutClient({
   children,
 }: {
